@@ -49,7 +49,7 @@ const Wrapper = styled.div`
   min-height: 96px;
 `;
 
-function SavedTemplates({ pageSize, loadTemplates, ...rest }) {
+function SavedTemplates({ pageSize, loadTemplates, isLoading, ...rest }) {
   const {
     actions: { deletePageTemplate },
   } = useAPI();
@@ -66,7 +66,6 @@ function SavedTemplates({ pageSize, loadTemplates, ...rest }) {
   const [showDialog, setShowDialog] = useState(null);
   const [templateToDelete, setTemplateToDelete] = useState(null);
   const ref = useRef();
-  const [isLoading, setIsLoading] = useState(false);
 
   // This is a workaround to force re-rendering for the virtual list to work and the parentRef being assigned correctly.
   // @todo Look into why does the ref not work as expected otherwise.
@@ -75,13 +74,11 @@ function SavedTemplates({ pageSize, loadTemplates, ...rest }) {
   }, []);
 
   const fetchTemplates = useCallback(() => {
-    setIsLoading(true);
     if (!nextTemplatesToFetch) {
-      setIsLoading(false);
       return;
     }
+
     loadTemplates();
-    setIsLoading(false);
   }, [nextTemplatesToFetch, loadTemplates]);
 
   const onClickDelete = useCallback(({ templateId }, e) => {
@@ -161,6 +158,7 @@ function SavedTemplates({ pageSize, loadTemplates, ...rest }) {
 SavedTemplates.propTypes = {
   pageSize: PropTypes.object.isRequired,
   loadTemplates: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool,
 };
 
 export default SavedTemplates;

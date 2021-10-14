@@ -69,11 +69,11 @@ function DefaultTemplates({ pageSize }) {
       setIsLoading(true);
       const trackTiming = getTimeTracker('load_page_templates');
       setPageTemplates(await getPageTemplates());
+      setIsLoading(false);
       trackTiming();
     }
 
     loadPageTemplates();
-    setIsLoading(false);
   }, [getPageTemplates, setPageTemplates]);
 
   const pageTemplatesParentRef = useRef();
