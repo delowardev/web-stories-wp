@@ -30,6 +30,7 @@ import {
   Text,
   THEME_CONSTANTS,
   useSnackbar,
+  LoadingSpinner,
 } from '@web-stories-wp/design-system';
 
 /**
@@ -38,12 +39,14 @@ import {
 import { useAPI } from '../../../../app/api';
 import Dialog from '../../../dialog';
 import useLibrary from '../../useLibrary';
+import { LoadingContainer } from '../shared';
 import TemplateList from './templateList';
 
 const Wrapper = styled.div`
   padding-top: 5px;
   overflow-y: scroll;
   overflow-x: hidden;
+  min-height: 96px;
 `;
 
 function SavedTemplates({ pageSize, loadTemplates, ...rest }) {
@@ -63,6 +66,7 @@ function SavedTemplates({ pageSize, loadTemplates, ...rest }) {
   const [showDialog, setShowDialog] = useState(null);
   const [templateToDelete, setTemplateToDelete] = useState(null);
   const ref = useRef();
+  const [isLoading, setIsLoading] = useState(false);
 
   // This is a workaround to force re-rendering for the virtual list to work and the parentRef being assigned correctly.
   // @todo Look into why does the ref not work as expected otherwise.
@@ -71,10 +75,13 @@ function SavedTemplates({ pageSize, loadTemplates, ...rest }) {
   }, []);
 
   const fetchTemplates = useCallback(() => {
+    setIsLoading(true);
     if (!nextTemplatesToFetch) {
+      setIsLoading(false);
       return;
     }
     loadTemplates();
+    setIsLoading(false);
   }, [nextTemplatesToFetch, loadTemplates]);
 
   const onClickDelete = useCallback(({ templateId }, e) => {
@@ -116,7 +123,7 @@ function SavedTemplates({ pageSize, loadTemplates, ...rest }) {
 
   return (
     <Wrapper ref={ref}>
-      {ref.current && (
+      {!isLoading && ref.current ? (
         <TemplateList
           parentRef={ref}
           pageSize={pageSize}
@@ -125,6 +132,10 @@ function SavedTemplates({ pageSize, loadTemplates, ...rest }) {
           fetchTemplates={fetchTemplates}
           {...rest}
         />
+      ) : (
+        <LoadingContainer>
+          <LoadingSpinner animationSize={64} numCircles={8} />
+        </LoadingContainer>
       )}
       {showDialog && (
         <Dialog
