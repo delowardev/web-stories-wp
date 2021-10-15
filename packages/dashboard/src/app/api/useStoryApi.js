@@ -34,6 +34,7 @@ import storyReducer, {
 } from '../reducer/stories';
 import { ERRORS } from '../textContent';
 import { useConfig } from '../config';
+import { snakeToCamelCaseObjectKeys } from '../../utils/snakeToCamelCase';
 
 const useStoryApi = () => {
   const isInitialFetch = useRef(true);
@@ -62,8 +63,10 @@ const useStoryApi = () => {
         // Maybe not making a lot of sense to expect fetchedStoryIds from the api callbacks response.
         // However the order of ids get changed if we try to create that array here
         // which may ( or may not ) cause some regression. @todo Reflect on fetchedStoryIds again in next phase.
+        const response = await fetchStoriesCallback(queryParams);
+
         const { stories, fetchedStoryIds, totalPages, totalStoriesByStatus } =
-          await fetchStoriesCallback(queryParams);
+          snakeToCamelCaseObjectKeys(response);
 
         // Hook into first fetch of story statuses.
         if (isInitialFetch.current) {
@@ -108,7 +111,8 @@ const useStoryApi = () => {
       const trackTiming = getTimeTracker('load_update_story');
 
       try {
-        const response = await updateStoryCallback(story);
+        const storyResponse = await updateStoryCallback(story);
+        const response = snakeToCamelCaseObjectKeys(storyResponse);
 
         dispatch({
           type: STORY_ACTION_TYPES.UPDATE_STORY,
@@ -162,7 +166,8 @@ const useStoryApi = () => {
       });
 
       try {
-        const response = await createStoryFromTemplateCallback(template);
+        const storyResponse = await createStoryFromTemplateCallback(template);
+        const response = snakeToCamelCaseObjectKeys(storyResponse);
 
         dispatch({
           type: STORY_ACTION_TYPES.CREATE_STORY_FROM_TEMPLATE_SUCCESS,
@@ -192,7 +197,8 @@ const useStoryApi = () => {
       const trackTiming = getTimeTracker('load_duplicate_story');
 
       try {
-        const response = await duplicateStoryCallback(story);
+        const storyResponse = await duplicateStoryCallback(story);
+        const response = snakeToCamelCaseObjectKeys(storyResponse);
 
         dispatch({
           type: STORY_ACTION_TYPES.DUPLICATE_STORY,

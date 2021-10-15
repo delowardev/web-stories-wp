@@ -86,9 +86,9 @@ export function fetchStories(config, queryParams) {
 
     return {
       stories: reshapedStories,
-      fetchedStoryIds,
-      totalPages,
-      totalStoriesByStatus,
+      fetched_story_ids: fetchedStoryIds,
+      total_pages: totalPages,
+      total_stories_by_status: totalStoriesByStatus,
     };
   });
 }

@@ -23,6 +23,7 @@ import { useCallback, useEffect, useState } from '@web-stories-wp/react';
  * Internal dependencies
  */
 import { useConfig } from '../config';
+import { snakeToCamelCaseObjectKeys } from '../../utils/snakeToCamelCase';
 
 export default function useUserApi() {
   const [currentUser, setCurrentUser] = useState({});
@@ -46,7 +47,8 @@ export default function useUserApi() {
   const toggleWebStoriesTrackingOptIn = useCallback(async () => {
     setIsUpdating(true);
     try {
-      setCurrentUser(await toggleWebStoriesTrackingOptInCallback(currentUser));
+      const response = await toggleWebStoriesTrackingOptInCallback(currentUser);
+      setCurrentUser(snakeToCamelCaseObjectKeys(response));
     } finally {
       setIsUpdating(false);
     }
@@ -55,9 +57,10 @@ export default function useUserApi() {
   const toggleWebStoriesMediaOptimization = useCallback(async () => {
     setIsUpdating(true);
     try {
-      setCurrentUser(
-        await toggleWebStoriesMediaOptimizationCallback(currentUser)
+      const response = await toggleWebStoriesMediaOptimizationCallback(
+        currentUser
       );
+      setCurrentUser(snakeToCamelCaseObjectKeys(response));
     } finally {
       setIsUpdating(false);
     }

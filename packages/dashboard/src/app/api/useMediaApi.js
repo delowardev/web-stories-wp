@@ -28,6 +28,7 @@ import mediaReducer, {
 } from '../reducer/media';
 import { ERRORS } from '../textContent';
 import { useConfig } from '../config';
+import { snakeToCamelCaseObjectKeys } from '../../utils/snakeToCamelCase';
 
 export default function useMediaApi() {
   const [state, dispatch] = useReducer(mediaReducer, defaultMediaState);
@@ -44,12 +45,13 @@ export default function useMediaApi() {
       try {
         // each file needs to be uploaded separately
         const mediaResponse = await uploadMediaCallback(files);
+        const response = snakeToCamelCaseObjectKeys(mediaResponse);
 
         dispatch({
           type: MEDIA_ACTION_TYPES.ADD_MEDIA_SUCCESS,
           payload: {
-            media: mediaResponse,
-            newlyCreatedMediaIds: mediaResponse.map(({ id }) => id),
+            media: response,
+            newlyCreatedMediaIds: response.map(({ id }) => id),
           },
         });
       } catch (err) {
