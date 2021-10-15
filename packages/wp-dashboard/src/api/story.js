@@ -155,7 +155,7 @@ export const createStoryFromTemplate = async (config, template) => {
   const storyPropsToSave = await getStoryPropsToSave({
     story: {
       status: 'auto-draft',
-      featuredMedia: {
+      featured_media: {
         id: 0,
       },
     },

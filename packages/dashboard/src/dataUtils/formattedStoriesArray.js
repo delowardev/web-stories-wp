@@ -19,7 +19,6 @@
  */
 import { toUTCDate } from '@web-stories-wp/date';
 
-// @todo Remove WordPress specific and unused fields.
 const formattedStoriesArray = [
   {
     locked: true,

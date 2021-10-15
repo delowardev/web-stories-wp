@@ -29,8 +29,8 @@ export default function reshapeStoryObject(originalStoryData) {
     modified,
     modified_gmt,
     link,
-    preview_link: previewLink,
-    edit_link: editStoryLink,
+    preview_link,
+    edit_link: edit_story_link,
     _embedded: {
       author = [{ name: '' }],
       'wp:featuredmedia': featuredMedia = [{ source_url: '' }],
@@ -42,7 +42,7 @@ export default function reshapeStoryObject(originalStoryData) {
   if (!id) {
     return null;
   }
-  const { source_url: featuredMediaUrl } = featuredMedia[0];
+  const { source_url: featured_media_url } = featuredMedia[0];
   const capabilities = {
     hasEditAction: Object.prototype.hasOwnProperty.call(links, REST_LINKS.EDIT),
     hasDeleteAction: Object.prototype.hasOwnProperty.call(
@@ -61,17 +61,17 @@ export default function reshapeStoryObject(originalStoryData) {
     modified_gmt: `${modified_gmt}Z`,
     author: author[0].name,
     locked: lock[0]?.locked,
-    lockUser: {
+    lock_user: {
       id: lockUser[0].id,
       name: lockUser[0].name,
       avatar: lockUser[0]?.avatar_urls?.['96'] || null,
     },
-    bottomTargetAction: editStoryLink,
-    featuredMediaUrl,
-    editStoryLink,
-    previewLink,
+    bottom_target_action: edit_story_link,
+    featured_media_url,
+    edit_story_link,
+    preview_link,
     link,
-    originalStoryData,
+    original_story_data: originalStoryData, // @todo Do we need it?
     capabilities,
   };
 }
