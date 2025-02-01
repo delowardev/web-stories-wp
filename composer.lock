@@ -2408,20 +2408,20 @@
         },
         {
             "name": "php-stubs/wordpress-tests-stubs",
-            "version": "v6.6.0",
+            "version": "v6.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-stubs/wordpress-tests-stubs.git",
-                "reference": "bbb91ebd5477134a672b45718ecd120ed2d739c7"
+                "reference": "37cc3f2136034cc239149151933e1c5be6ce6103"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-stubs/wordpress-tests-stubs/zipball/bbb91ebd5477134a672b45718ecd120ed2d739c7",
-                "reference": "bbb91ebd5477134a672b45718ecd120ed2d739c7",
+                "url": "https://api.github.com/repos/php-stubs/wordpress-tests-stubs/zipball/37cc3f2136034cc239149151933e1c5be6ce6103",
+                "reference": "37cc3f2136034cc239149151933e1c5be6ce6103",
                 "shasum": ""
             },
             "require-dev": {
-                "php": "~7.3 || ~8.0",
+                "php": "^7.3 || ^8.0",
                 "php-stubs/generator": "^0.8.0"
             },
             "suggest": {
@@ -2442,9 +2442,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-stubs/wordpress-tests-stubs/issues",
-                "source": "https://github.com/php-stubs/wordpress-tests-stubs/tree/v6.6.0"
+                "source": "https://github.com/php-stubs/wordpress-tests-stubs/tree/v6.7.1"
             },
-            "time": "2024-07-17T07:56:06+00:00"
+            "time": "2024-11-23T22:07:27+00:00"
         },
         {
             "name": "phpcompatibility/php-compatibility",
@@ -7439,5 +7439,5 @@
     "platform-overrides": {
         "php": "7.4"
     },
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.3.0"
 }
