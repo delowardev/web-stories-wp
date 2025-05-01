@@ -70,15 +70,15 @@ jobs:
     timeout-minutes: 30
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@91182cccc01eb5e619899d80e4e971d6181294a7
+        uses: step-security/harden-runner@0634a2670c59f64b4a01f0f96f84700a4088b9f0
         with:
           egress-policy: audit # TODO: change to 'egress-policy: block' after couple of runs
 
       - name: Checkout
-        uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
 
       - name: Setup Node
-        uses: actions/setup-node@0a44ba7841725637a19e28fa30b79a866c81b0a6
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version-file: '.nvmrc'
           cache: npm
@@ -96,12 +96,12 @@ jobs:
           PUPPETEER_SKIP_DOWNLOAD: true
 
       - name: Install PHP dependencies
-        uses: ramsey/composer-install@57532f8be5bda426838819c5ee9afb8af389d51a
+        uses: ramsey/composer-install@a2636af0004d1c0499ffca16ac0b4cc94df70565
         with:
           composer-options: '--prefer-dist --no-progress --no-interaction'
 
       - name: Setup Bun
-        uses: oven-sh/setup-bun@4bc047ad259df6fc24a6c9b0f9a0cb08cf17fbe5
+        uses: oven-sh/setup-bun@735343b667d3e6f658f44d0eca948eb6282f2b76
         with:
           bun-version: latest
 
@@ -116,7 +116,7 @@ jobs:
         run: bun run workflow:build-plugin
 
       - name: Upload bundle
-        uses: actions/upload-artifact@50769540e7f4bd5e21e526ee35c689e35e0d6874
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: web-stories
           path: build/web-stories
@@ -149,7 +149,7 @@ jobs:
 
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@91182cccc01eb5e619899d80e4e971d6181294a7
+        uses: step-security/harden-runner@0634a2670c59f64b4a01f0f96f84700a4088b9f0
         with:
           disable-file-monitoring: true
           egress-policy: audit
@@ -165,10 +165,10 @@ jobs:
             34.104.35.123:443
 
       - name: Checkout
-        uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
 
       - name: Download bundle
-        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
         with:
           name: web-stories
 
@@ -177,7 +177,7 @@ jobs:
         run: sudo apt-get install libgbm1
 
       - name: Setup Node
-        uses: actions/setup-node@0a44ba7841725637a19e28fa30b79a866c81b0a6
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version-file: '.nvmrc'
           cache: npm
@@ -229,7 +229,7 @@ jobs:
           ARTIFACT_NAME: failures-artifacts-${{ matrix.wp }}-${{ matrix.shard }}
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@50769540e7f4bd5e21e526ee35c689e35e0d6874
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:
           name: ${{ env.ARTIFACT_NAME }}
