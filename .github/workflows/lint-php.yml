@@ -41,7 +41,7 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: Harden Runner
-        uses: step-security/harden-runner@91182cccc01eb5e619899d80e4e971d6181294a7
+        uses: step-security/harden-runner@0634a2670c59f64b4a01f0f96f84700a4088b9f0
         with:
           disable-file-monitoring: true
           egress-policy: block
@@ -55,7 +55,7 @@ jobs:
             dl.cloudsmith.io:443
 
       - name: Checkout
-        uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
 
       - name: Setup PHP
         uses: shivammathur/setup-php@e6f75134d35752277f093989e72e140eaa222f35
@@ -68,7 +68,7 @@ jobs:
         run: composer --no-interaction validate --no-check-all
 
       - name: Install PHP dependencies
-        uses: ramsey/composer-install@57532f8be5bda426838819c5ee9afb8af389d51a
+        uses: ramsey/composer-install@a2636af0004d1c0499ffca16ac0b4cc94df70565
         with:
           composer-options: '--prefer-dist --no-progress --no-interaction'
 
